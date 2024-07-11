@@ -55,6 +55,7 @@
             
             <Entry Placeholder="Numero de Cuenta"
                    x:Name="txtCuenta"
+                   Keyboard="Numeric"
                 Margin="0,-70,0,10" 
                 HorizontalOptions="FillAndExpand" 
                 WidthRequest="300"

@@ -31,7 +31,9 @@ namespace StarBankApp.Views
         {
             using (var client = new HttpClient())
             {
-                var uri = new Uri($"http://34.42.1.3:3000/api/cliente/findcorreo/?correo={Uri.EscapeDataString(correo)}");
+                
+                var uri = new Uri($"http://34.42.1.3:3000/api/cliente/findcorreo/{Uri.EscapeDataString(correo)}");
+
 
                 try
                 {
