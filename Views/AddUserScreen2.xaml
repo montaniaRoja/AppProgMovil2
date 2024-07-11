@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StarBankApp.Views.AddUserScreen2"
+             Background="Red">
+    <Grid Padding="10">
+        <!-- Definimos tres filas: una para el encabezado, otra para el cuerpo, y otra para el pie -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Encabezado -->
+            <RowDefinition Height="*"/>
+            <!-- Cuerpo -->
+            <RowDefinition Height="Auto"/>
+            <!-- Pie -->
+        </Grid.RowDefinitions>
+        <Frame
+    Grid.Row="0"
+    Padding="10"
+    BackgroundColor="Red"
+    BorderColor="Red"
+    CornerRadius="0">
+            <StackLayout
+        Orientation="Horizontal"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+                <Border Stroke="#C49B33"
+            StrokeThickness="4"
+            StrokeShape="RoundRectangle 40,0,0,40"
+            Background="Red"
+            Padding="16,8"
+            HorizontalOptions="Center">
+                    <Label
+            FontAttributes="Bold"
+            FontSize="36"
+            Text="Star Bank"
+            TextColor="White"
+            VerticalOptions="Center"
+            WidthRequest="200"/>
+                </Border>
+                <Image
+            Margin="10,0,100,0"
+            Aspect="AspectFit"
+            Source="mainlogo.jpg"
+            VerticalOptions="Center"
+            WidthRequest="75"
+            HeightRequest="75"/>
+            </StackLayout>
+        </Frame>
+        <StackLayout
+             Grid.Row="1" 
+             VerticalOptions="CenterAndExpand" 
+             HorizontalOptions="FillAndExpand" 
+             Padding="100"
+             Background="White">
+            
+            <Entry Placeholder="Numero de Cuenta"
+                   x:Name="txtCuenta"
+                Margin="0,-70,0,10" 
+                HorizontalOptions="FillAndExpand" 
+                WidthRequest="300"
+                Background="Transparent"
+                FontSize="18"
+                FontAttributes="Bold"
+                TextColor="Black"/>
+            <Entry Placeholder="Usuario"
+           x:Name="txtUsuario"
+                Margin="0,20,0,10" 
+                HorizontalOptions="FillAndExpand" 
+                WidthRequest="300"
+                Background="Transparent"
+                FontSize="18"
+                FontAttributes="Bold"
+            TextColor="Black"/> 
+            <Entry Placeholder="Contraseña"
+           x:Name="txtKeyword"
+            Margin="0,20,0,10" 
+            IsPassword="True"
+            HorizontalOptions="FillAndExpand" 
+            WidthRequest="300"
+            Background="Transparent"
+            FontSize="18"
+            FontAttributes="Bold"
+            TextColor="Black"/>
+            <Entry Placeholder="Repita Contraseña"
+           x:Name="txtVerificar"
+                    Margin="0,20,0,10" 
+                   IsPassword="True"
+                    HorizontalOptions="FillAndExpand" 
+                    WidthRequest="300"
+                    Background="Transparent"
+                FontSize="18"
+                FontAttributes="Bold"
+                TextColor="Black"/>
+            <Entry Placeholder="Clave que recibio por correo"
+           x:Name="txtClave"
+                Margin="0,20,0,10" 
+                Keyboard="Numeric"
+                HorizontalOptions="FillAndExpand" 
+                WidthRequest="300"
+                Background="Transparent"
+                FontSize="18"
+                FontAttributes="Bold"
+                TextColor="Black"/>
+            <Button 
+                Text="Crear Usuario"
+                x:Name="btnCrearUsuario"
+                Clicked="CrearUsuario_Clicked"
+                BackgroundColor="DeepSkyBlue" 
+                TextColor="White"
+                FontAttributes="Bold"
+                Margin="0,30,0,10"
+                WidthRequest="300"/>
+
+        </StackLayout>
+    </Grid>
+</ContentPage>

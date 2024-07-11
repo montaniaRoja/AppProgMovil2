@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StarBankApp.Views.AddUserScreen"
+             Background="Red">
+    <Grid Padding="10">
+        <!-- Definimos tres filas: una para el encabezado, otra para el cuerpo, y otra para el pie -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Encabezado -->
+            <RowDefinition Height="*"/>
+            <!-- Cuerpo -->
+            <RowDefinition Height="Auto"/>
+            <!-- Pie -->
+        </Grid.RowDefinitions>
+        <Frame
+    Grid.Row="0"
+    Padding="10"
+    BackgroundColor="Red"
+    BorderColor="Red"
+    CornerRadius="0">
+            <StackLayout
+        Orientation="Horizontal"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+                <Border Stroke="#C49B33"
+            StrokeThickness="4"
+            StrokeShape="RoundRectangle 40,0,0,40"
+            Background="Red"
+            Padding="16,8"
+            HorizontalOptions="Center">
+                    <Label
+            FontAttributes="Bold"
+            FontSize="36"
+            Text="Star Bank"
+            TextColor="White"
+            VerticalOptions="Center"
+            WidthRequest="200"/>
+                </Border>
+                <Image
+            Margin="10,0,100,0"
+            Aspect="AspectFit"
+            Source="mainlogo.jpg"
+            VerticalOptions="Center"
+            WidthRequest="75"
+            HeightRequest="75"/>
+            </StackLayout>
+        </Frame>
+        <StackLayout
+             Grid.Row="1" 
+             VerticalOptions="CenterAndExpand" 
+             HorizontalOptions="FillAndExpand" 
+             Padding="100"
+             Background="White">
+            <Label
+              Margin="0,-80,0,10"
+              FontAttributes="Bold"
+              FontSize="20"
+              HorizontalTextAlignment="Center"
+              Text="Crear Usuario"
+              TextColor="Black" />
+            <Entry Placeholder="Correo Registrado"
+                   x:Name="txtCorreo"
+        Margin="0,150,0,50" 
+        HorizontalOptions="FillAndExpand" 
+        WidthRequest="300"
+        Background="Transparent"
+        FontSize="18"
+        FontAttributes="Bold"
+        TextColor="Black"/>
+            <Button 
+                Text="Solicitar Clave"
+                x:Name="btnSolicitarClave"
+                Clicked="SolicitarClave_Clicked"
+                BackgroundColor="DeepSkyBlue" 
+                TextColor="White"
+                FontAttributes="Bold"
+                Margin="0,20,0,0"
+                WidthRequest="300"/>
+
+        </StackLayout>
+    </Grid>
+</ContentPage>

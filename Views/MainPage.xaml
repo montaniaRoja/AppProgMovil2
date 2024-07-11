@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StarBankApp.Views.MainPage"
+             Background="Red">
+    <Grid Padding="10">
+        <!-- Definimos tres filas: una para el encabezado, otra para el cuerpo, y otra para el pie -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Encabezado -->
+            <RowDefinition Height="*"/>
+            <!-- Cuerpo -->
+            <RowDefinition Height="Auto"/>
+            <!-- Pie -->
+        </Grid.RowDefinitions>
+
+        <!-- Encabezado: título y logo -->
+        <Frame
+            Grid.Row="0"
+            Padding="10"
+            BackgroundColor="Red"
+            BorderColor="Red"
+            CornerRadius="0">
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                <Border Stroke="#C49B33"
+                    StrokeThickness="4"
+                    StrokeShape="RoundRectangle 40,0,0,40"
+                    Background="Red"
+                    Padding="16,8"
+                    HorizontalOptions="Center">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="36"
+                    Text="Star Bank"
+                    TextColor="White"
+                    VerticalOptions="Center"
+                    WidthRequest="200"/>
+                </Border>
+                <Image
+                    Margin="10,0,100,0"
+                    Aspect="AspectFit"
+                    Source="mainlogo.jpg"
+                    VerticalOptions="Center"
+                    WidthRequest="75"
+                    HeightRequest="75"/>
+            </StackLayout>
+        </Frame>
+
+        <!-- Cuerpo: campos de usuario y contraseña, botón de ingresar -->
+        <StackLayout 
+            Grid.Row="1" 
+            VerticalOptions="CenterAndExpand" 
+            HorizontalOptions="FillAndExpand" 
+            Padding="100"
+            Background="White">
+            
+            <Entry Placeholder="Usuario" 
+                   Margin="0,10,0,50" 
+                   HorizontalOptions="FillAndExpand" 
+                   WidthRequest="300"
+                   Background="Transparent"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="Black"/>
+            
+            <Entry Placeholder="Contraseña" 
+                   IsPassword="True" 
+                   Margin="0,10,0,0" 
+                   WidthRequest="300"
+                   FontAttributes="Bold"
+                   FontSize="18"
+                   TextColor="Black"/>
+            <Button Text="Ingresar" 
+                    BackgroundColor="DeepSkyBlue" 
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Margin="0,50,0,0"
+                    WidthRequest="300"/>
+
+            <Button Text="Crear Usuario"
+                    x:Name="btnCrearUsuario"
+                    Clicked="AddUserScreen_Clicked"
+                    BackgroundColor="Transparent" 
+                    TextColor="Blue"
+                    FontAttributes="Bold"
+                    WidthRequest="300" 
+                    Margin="0,30,0,0" />
+        </StackLayout>
+
+        <!-- Pie: botón para cualquier otra acción -->
+        <Button
+            Grid.Row="2"
+            Text="Tipo de Cambio"
+            x:Name="btnTipoDeCambio"
+            Clicked="ChangeTypeScreen_Clicked"
+            BackgroundColor="IndianRed"
+            TextColor="Black"
+            FontAttributes="Bold"
+            VerticalOptions="End"
+            WidthRequest="300"
+            Margin="0,10,0,10"/>
+    </Grid>
+</ContentPage>
