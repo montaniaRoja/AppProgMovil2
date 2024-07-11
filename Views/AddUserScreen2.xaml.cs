@@ -56,7 +56,7 @@ public partial class AddUserScreen2 : ContentPage
                     var responseContent = await response.Content.ReadAsStringAsync();
                     // Manejar la respuesta exitosa aquí, si es necesario
                     await DisplayAlert("Éxito", "Solicitud enviada correctamente.", "OK");
-                    await Navigation.PushAsync(new Views.AccountList());
+                    await Navigation.PushAsync(new Views.MainPage());
                 }
                 else
                 {
