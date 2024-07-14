@@ -12,6 +12,7 @@ namespace StarBankApp.Views
         public AddUserScreen()
         {
             InitializeComponent();
+            NavigationPage.SetHasBackButton(this, false);
         }
 
         private async void SolicitarClave_Clicked(object sender, EventArgs e)

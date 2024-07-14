@@ -1,75 +1,110 @@
 using System.Text;
 using System;
 using System.Net.Http;
-
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
+using StarBankApp.Controllers;
 
-
-namespace StarBankApp.Views;
-
-public partial class AddUserScreen2 : ContentPage
+namespace StarBankApp.Views
 {
-	public AddUserScreen2()
-	{
-		InitializeComponent();
-	}
-	private async void CrearUsuario_Clicked(object sender, EventArgs e)
-	{
-		var no_cuenta=txtCuenta.Text;
-		var usuario=txtUsuario.Text;
-		var keyword=txtKeyword.Text;
-		var repeatKeyword=txtVerificar.Text;
-        int clave = int.Parse(txtClave.Text);
-
-        if (string.IsNullOrEmpty(no_cuenta) ||
-			string.IsNullOrEmpty(usuario) ||
-			string.IsNullOrEmpty(keyword) )
-        {
-            await DisplayAlert("Error", "Verifique todos los campos", "OK");
-            return;
-        }
-
-		if (keyword!=repeatKeyword)
-		{
-            await DisplayAlert("Error", "Las contraseñas no son iguales", "OK");
-            return;
-        }
-
-		await EnviarUsuario(no_cuenta, usuario, keyword, clave);
-
-    }
-
-    private async Task EnviarUsuario(string a, string b, string c, int d)
+    public partial class AddUserScreen2 : ContentPage
     {
-        using (var client = new HttpClient())
+        private UsersDB controller;
+
+        public AddUserScreen2()
         {
-            var uri = new Uri("http://34.42.1.3:3000/api/cuenta/findclave");
-            var json = $"{{ \"no_cuenta\": \"{a}\" , \"usuario\": \"{b}\" , \"keyword\": \"{c}\", \"clave\": {d} }}";
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            Console.WriteLine(json);
-            try
+            InitializeComponent();
+            controller = new UsersDB();
+            InitController();
+            NavigationPage.SetHasBackButton(this, false);
+        }
+
+        private async void InitController()
+        {
+            await controller.Init();
+        }
+
+        private async void CrearUsuario_Clicked(object sender, EventArgs e)
+        {
+            var no_cuenta = txtCuenta.Text;
+            var usuario = txtUsuario.Text;
+            var keyword = txtKeyword.Text;
+            var repeatKeyword = txtVerificar.Text;
+            int clave = int.Parse(txtClave.Text);
+
+            if (string.IsNullOrEmpty(no_cuenta) ||
+                string.IsNullOrEmpty(usuario) ||
+                string.IsNullOrEmpty(keyword))
             {
-                var response = await client.PostAsync(uri, content);
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    // Manejar la respuesta exitosa aquí, si es necesario
-                    await DisplayAlert("Éxito", "Solicitud enviada correctamente.", "OK");
-                    await Navigation.PushAsync(new Views.MainPage());
-                }
-                else
-                {
-                    // Manejar la respuesta de error aquí, si es necesario
-                    await DisplayAlert("Error", "Hubo un problema al enviar la solicitud.", "OK");
-                }
+                await DisplayAlert("Error", "Verifique todos los campos", "OK");
+                return;
             }
-            catch (Exception ex)
+
+            if (keyword != repeatKeyword)
             {
-                // Manejar las excepciones aquí
-                await DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
+                await DisplayAlert("Error", "Las contraseñas no son iguales", "OK");
+                return;
+            }
+
+            await EnviarUsuario(no_cuenta, usuario, keyword, clave);
+        }
+
+        private async Task EnviarUsuario(string cuenta, string usuario, string password, int clave)
+        {
+            using (var client = new HttpClient())
+            {
+                var uri = new Uri("http://34.42.1.3:3000/api/cuenta/findclave");
+                var json = $"{{ \"no_cuenta\": \"{cuenta}\" , \"usuario\": \"{usuario}\" , \"keyword\": \"{password}\", \"clave\": {clave} }}";
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                Console.WriteLine(json); // Verifica que el JSON sea correcto
+
+                try
+                {
+                    var response = await client.PostAsync(uri, content);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        
+
+                        try
+                        {
+                            if (controller != null)
+                            {
+                                int result = await controller.InsertUsuario(usuario);
+                                Console.WriteLine($"InsertUsuario result: {result}"); // Registro del resultado
+
+                                if (result > 0)
+                                {
+                                    await DisplayAlert("Aviso", "Usuario creado exitosamente", "OK");
+                                    txtUsuario.Text = usuario;
+                                }
+                                else
+                                {
+                                    await DisplayAlert("Aviso", "El usuario no se creó en la base local", "OK");
+                                }
+                            }
+                            else
+                            {
+                                await DisplayAlert("Error", "El controlador es nulo", "OK");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            await DisplayAlert("Error", $"Ocurrió un error durante la inserción: {ex.Message}", "OK");
+                        }
+
+                        await Navigation.PushAsync(new MainPage());
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Hubo un problema al enviar la solicitud.", "OK");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", $"Ocurrió un error durante la solicitud HTTP: {ex.Message}", "OK");
+                }
             }
         }
     }
-
 }

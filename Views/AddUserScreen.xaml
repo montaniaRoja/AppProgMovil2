@@ -75,7 +75,7 @@
                 BackgroundColor="DeepSkyBlue" 
                 TextColor="White"
                 FontAttributes="Bold"
-                Margin="0,20,0,0"
+                Margin="0,10,0,0"
                 WidthRequest="300"/>
 
         </StackLayout>
