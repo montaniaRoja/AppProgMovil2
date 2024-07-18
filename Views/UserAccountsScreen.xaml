@@ -46,88 +46,103 @@
         </Frame>
 
         <!-- Cuerpo: información del cliente y cuentas -->
-        <StackLayout 
-            Grid.Row="1" 
-            VerticalOptions="CenterAndExpand" 
-            HorizontalOptions="FillAndExpand" 
-            Padding="20" Margin="0,0,0,0"
-            HeightRequest="450"
-            Background="White">
-            <Label 
-                FontAttributes="Bold" 
-                FontSize="36" Text="Bienvenido" 
-                TextColor="White" 
-                Margin="0,-80,0,0" 
-                VerticalOptions="Center" 
-                WidthRequest="200"/>
-            <Label x:Name="txtCliente" 
+        <Frame 
+            Grid.Row="1"
+            Padding="10"          
+            CornerRadius="10"
+            Margin="0,0,0,0"
+            BackgroundColor="White"
+            HasShadow="True">
+            <StackLayout 
+                VerticalOptions="FillAndExpand" 
+                HorizontalOptions="FillAndExpand" 
+                Padding="20" 
+                Margin="0,0,0,0"
+                Background="White">
+                <Label 
+                    FontAttributes="Bold" 
+                    FontSize="36" Text="Bienvenido" 
+                    TextColor="Black" 
+                    Margin="0,-25,0,0" 
+                    VerticalOptions="Center" 
+                    WidthRequest="200"/>
+                <Label x:Name="txtCliente" 
                    FontAttributes="Bold" 
                    FontSize="24" Text="{Binding Cliente.Nombre}" 
                    TextColor="Black" 
-                   Margin="0,0,0,0" 
+                   Margin="120,10,0,0" 
                    HorizontalOptions="FillAndExpand" 
-                   WidthRequest="300"/>
+                   WidthRequest="320"/>
 
-            <!-- CollectionView para mostrar cuentas del cliente -->
-            <CollectionView x:Name="collectionView" 
-                            ItemsSource="{Binding Accounts}" 
-                            VerticalOptions="FillAndExpand" 
-                            Background="#C49B33">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout 
-                            Padding="10">
-                            <Label 
-                                Text="{Binding No_Cuenta}" 
-                                FontSize="18" 
-                                FontAttributes="Bold" 
-                                TextColor="Black"/>
-                            <Label Text="{Binding Moneda}" 
-                                   FontSize="16" 
-                                   TextColor="Black"/>
-                            <Label 
-                                Text="{Binding Saldo}" 
-                                FontSize="32" 
-                                TextColor="Black"/>
-                            <StackLayout Orientation="Horizontal" Spacing="10">
-                                <Button 
-                                    Text="Historial" 
-                                    Command="{Binding Path=BindingContext.ViewHistoryCommand, Source={x:Reference collectionView}}" 
-                                    CommandParameter="{Binding .}" 
-                                    BackgroundColor="DeepSkyBlue" 
-                                    TextColor="White"
-                                    FontAttributes="Bold"
-                                    FontSize="18"
-                                    WidthRequest="100"/>
-                                <Button 
-                                    Text="Pagos" 
-                                    Command="{Binding Path=BindingContext.MakePaymentCommand, Source={x:Reference collectionView}}" 
-                                    CommandParameter="{Binding .}" 
-                                    BackgroundColor="DeepSkyBlue" 
-                                    TextColor="White"
-                                    FontAttributes="Bold"
-                                    FontSize="18"
-                                    WidthRequest="100"/>
-                                <Button Text="Transfer" 
-                                        Command="{Binding Path=BindingContext.TransferCommand, Source={x:Reference collectionView}}" 
-                                        CommandParameter="{Binding .}" 
-                                        BackgroundColor="DeepSkyBlue" 
-                                        TextColor="White"
-                                        FontAttributes="Bold"
-                                        FontSize="18"
-                                        WidthRequest="100"/>
-                            </StackLayout>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
+                <!-- ScrollView para hacer todo el contenido desplazable -->
+                <ScrollView VerticalOptions="FillAndExpand">
+                    <StackLayout BindableLayout.ItemsSource="{Binding Accounts}"
+                                 VerticalOptions="FillAndExpand"
+                                 Padding="10"
+                                 BackgroundColor="White">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="10"
+                                       Margin="8,10,10,0"
+                                       CornerRadius="10"
+                                       BackgroundColor="White"
+                                       WidthRequest="300"
+                                       HasShadow="True">
+                                    <StackLayout>
+                                        <Label Text="{Binding No_Cuenta}" 
+                                               HorizontalOptions="Center"            
+                                               FontSize="18" 
+                                               FontAttributes="Bold"
+                                               TextColor="Black"/>
+                                        <Label Text="{Binding Moneda}" 
+                                               FontSize="16"
+                                               HorizontalOptions="Center"            
+                                               TextColor="Black"/>
+                                        <Label Text="{Binding Saldo}"
+                                               HorizontalOptions="Center"            
+                                               FontSize="32" 
+                                               TextColor="Black"/>
+                                        <StackLayout Orientation="Horizontal" Spacing="10">
+                                            <Button Text="Historial" 
+                                                    Command="{Binding Path=BindingContext.ViewHistoryCommand, Source={RelativeSource AncestorType={x:Type ScrollView}}}" 
+                                                    CommandParameter="{Binding .}" 
+                                                    BackgroundColor="DeepSkyBlue" 
+                                                    TextColor="White"
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    WidthRequest="85"/>
+                                            <Button Text="Pagos" 
+                                                    Command="{Binding Path=BindingContext.MakePaymentCommand, Source={RelativeSource AncestorType={x:Type ScrollView}}}" 
+                                                    CommandParameter="{Binding .}" 
+                                                    BackgroundColor="DeepSkyBlue" 
+                                                    TextColor="White"
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    WidthRequest="85"/>
+                                            <Button Text="Transfer" 
+                                                    Command="{Binding Path=BindingContext.TransferCommand, Source={RelativeSource AncestorType={x:Type ScrollView}}}" 
+                                                    CommandParameter="{Binding .}" 
+                                                    BackgroundColor="DeepSkyBlue" 
+                                                    TextColor="White"
+                                                    FontAttributes="Bold"
+                                                    FontSize="15"
+                                                    WidthRequest="85"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+        </Frame>
 
         <!-- Pie: botón para cualquier otra acción -->
         <Button 
             Grid.Row="2" 
             Text="Cerrar Sesion" 
             x:Name="btnCerrarSesion" 
+            Clicked="CerrarSesion_Clicked"
             BackgroundColor="IndianRed" 
             TextColor="Black" 
             FontAttributes="Bold" 

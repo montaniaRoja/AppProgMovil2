@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using SQLite;
+using StarBankApp.Models;
 
 namespace StarBankApp.Controllers
 {
@@ -52,5 +53,27 @@ namespace StarBankApp.Controllers
             await Init();
             return await _connection.UpdateAsync(usuario);
         }
+
+        public async Task<int> DeleteUsuarios()
+        {
+            await Init();            
+            int lineasEliminadas = await _connection.DeleteAllAsync<Models.Usuarios>();
+            return lineasEliminadas;
+        }
+
+        public async Task<int> InsertarNuevoUsuario(Models.Usuarios dbUser)
+        {
+            await Init();
+            int nuevoUsuario = await _connection.InsertAsync(dbUser);
+            return nuevoUsuario;
+        }
+
+        public async Task<int> ActualizarUsuario(Models.Usuarios usuario)
+        {
+            await Init();
+            int resultado = await _connection.UpdateAsync(usuario);
+            return resultado;
+        }
+
     }
 }

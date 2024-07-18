@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+//using Windows.System;
 
 namespace StarBankApp.Views
 {
@@ -70,6 +71,28 @@ namespace StarBankApp.Views
                 }
             }
         }
+
+        private async void CerrarSesion_Clicked(object sender, EventArgs e)
+        {
+            // Obtiene el último usuario
+            var ultimoUsuario = await controller.GetUltimoUsuario();
+            if (ultimoUsuario != null)
+            {
+                // Actualiza el token del usuario a una cadena vacía
+                ultimoUsuario.token = string.Empty;
+
+                // Actualiza el usuario en la base de datos
+                await controller.ActualizarUsuario(ultimoUsuario);
+
+                // Limpia la pila de navegación y navega a la página principal
+                Application.Current.MainPage = new NavigationPage(new MainPage());
+            }
+        }
+
+
+
+
+
     }
 
     public class UserAccountsViewModel : INotifyPropertyChanged

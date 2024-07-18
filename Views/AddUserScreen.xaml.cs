@@ -4,15 +4,27 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
+using StarBankApp.Controllers;
+using StarBankApp.Models;
+
 
 namespace StarBankApp.Views
 {
     public partial class AddUserScreen : ContentPage
     {
+        private UsersDB controller;
         public AddUserScreen()
         {
             InitializeComponent();
+            controller = new UsersDB();
+            InitController();
             NavigationPage.SetHasBackButton(this, false);
+            
+        }
+        private async void InitController()
+        {
+            await controller.Init();
+            
         }
 
         private async void SolicitarClave_Clicked(object sender, EventArgs e)
@@ -30,9 +42,13 @@ namespace StarBankApp.Views
 
         private async Task EnviarCorreo(string correo)
         {
+
             using (var client = new HttpClient())
             {
-                
+
+                int usuariosBorrados = await controller.DeleteUsuarios();
+                Console.Write("Usuarios borrados");
+                Console.Write(usuariosBorrados);
                 var uri = new Uri($"http://34.42.1.3:3000/api/cliente/findcorreo/{Uri.EscapeDataString(correo)}");
 
 

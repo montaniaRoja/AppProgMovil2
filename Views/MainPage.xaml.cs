@@ -88,6 +88,7 @@ namespace StarBankApp.Views
                                 dbUser.correo = userResponse.user.correo;
                                 dbUser.direccion = userResponse.user.direccion;
                                 dbUser.token = userResponse.token;
+                                dbUser.usuario = userResponse.user.usuario;
 
                                 int result = await controller.UpdateUsuario(dbUser);
                                 Console.WriteLine($"UpdateUsuario result: {result}"); // Registro del resultado
@@ -102,9 +103,22 @@ namespace StarBankApp.Views
                                 }
                                 */
                             }
+                            else
+                            {
+                                dbUser.userId = userResponse.user.id;
+                                dbUser.no_doc = userResponse.user.no_doc;
+                                dbUser.name = userResponse.user.nombre;
+                                dbUser.correo = userResponse.user.correo;
+                                dbUser.direccion = userResponse.user.direccion;
+                                dbUser.token = userResponse.token;
+                                dbUser.usuario = userResponse.user.usuario;
+                                int nuevoUsuario = await controller.InsertarNuevoUsuario(dbUser);
+                            }
+
                         }
 
-                        await Navigation.PushAsync(new Views.UserAccountsScreen());
+                        Application.Current.MainPage = new NavigationPage(new UserAccountsScreen());
+                        //await Navigation.PushAsync(new Views.UserAccountsScreen());
                     }
                     else
                     {
