@@ -105,13 +105,15 @@ namespace StarBankApp.Views
                             }
                             else
                             {
+                                dbUser = new Usuarios();
+                                dbUser.usuario = userResponse.user.usuario;
                                 dbUser.userId = userResponse.user.id;
                                 dbUser.no_doc = userResponse.user.no_doc;
                                 dbUser.name = userResponse.user.nombre;
                                 dbUser.correo = userResponse.user.correo;
                                 dbUser.direccion = userResponse.user.direccion;
                                 dbUser.token = userResponse.token;
-                                dbUser.usuario = userResponse.user.usuario;
+                                
                                 int nuevoUsuario = await controller.InsertarNuevoUsuario(dbUser);
                             }
 

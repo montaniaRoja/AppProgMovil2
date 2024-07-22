@@ -24,7 +24,7 @@ public partial class ChangeTypeScreen : ContentPage
             
             var hnlRate = exchangeRates.Data["HNL"];
             totalDolares = lempiras / hnlRate.Value;
-            txtDolares.Text = totalDolares.ToString("F4"); // Formatea a 4 decimales
+            txtDolares.Text = "$ "+totalDolares.ToString("F4"); // Formatea a 4 decimales
             lblDolares.Text = "Total en Dolares";
             
                       
@@ -47,7 +47,7 @@ public partial class ChangeTypeScreen : ContentPage
 
             var hnlRate = exchangeRates.Data["HNL"];
             totalLempiras = dolares * hnlRate.Value;
-            txtDolares.Text = totalLempiras.ToString("F4"); // Formatea a 4 decimales
+            txtDolares.Text = "L "+totalLempiras.ToString("F4"); // Formatea a 4 decimales
             lblDolares.Text = "Total en Lempiras";
 
 
@@ -57,6 +57,11 @@ public partial class ChangeTypeScreen : ContentPage
             txtDolares.Text = "Error";
             Console.WriteLine("error al recibir los tipos de cambio");
         }
+    }
+
+    private void btnMainPage_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new Views.MainPage());
     }
 
 }

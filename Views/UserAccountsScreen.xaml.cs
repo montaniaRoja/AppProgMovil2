@@ -44,8 +44,8 @@ namespace StarBankApp.Views
 
                 if (!string.IsNullOrEmpty(json))
                 {
-                    // Establecer el BindingContext
-                    BindingContext = new UserAccountsViewModel(json);
+                    // Pasa la instancia de Navigation al ViewModel
+                    BindingContext = new UserAccountsViewModel(Navigation, json);
                 }
             }
             else
@@ -74,29 +74,32 @@ namespace StarBankApp.Views
 
         private async void CerrarSesion_Clicked(object sender, EventArgs e)
         {
-            // Obtiene el último usuario
             var ultimoUsuario = await controller.GetUltimoUsuario();
             if (ultimoUsuario != null)
             {
-                // Actualiza el token del usuario a una cadena vacía
                 ultimoUsuario.token = string.Empty;
-
-                // Actualiza el usuario en la base de datos
                 await controller.ActualizarUsuario(ultimoUsuario);
-
-                // Limpia la pila de navegación y navega a la página principal
                 Application.Current.MainPage = new NavigationPage(new MainPage());
             }
         }
-
-
-
-
-
     }
+
 
     public class UserAccountsViewModel : INotifyPropertyChanged
     {
+        private readonly INavigation _navigation;
+
+        public UserAccountsViewModel(INavigation navigation, string json)
+        {
+            _navigation = navigation ?? throw new ArgumentNullException(nameof(navigation));
+            Cliente = DeserializeJson(json);
+            Accounts = new ObservableCollection<Account>(Cliente.Cuenta);
+
+            ViewHistoryCommand = new Command<Account>(ViewHistory);
+            MakePaymentCommand = new Command<Account>(MakePayment);
+            TransferCommand = new Command<Account>(Transfer);
+        }
+
         private Cliente cliente;
         public Cliente Cliente
         {
@@ -113,19 +116,18 @@ namespace StarBankApp.Views
         public ICommand MakePaymentCommand { get; set; }
         public ICommand TransferCommand { get; set; }
 
-        public UserAccountsViewModel(string json)
+        private async void ViewHistory(Account account)
         {
-            Cliente = DeserializeJson(json);
-            Accounts = new ObservableCollection<Account>(Cliente.Cuenta);
-
-            ViewHistoryCommand = new Command<Account>(ViewHistory);
-            MakePaymentCommand = new Command<Account>(MakePayment);
-            TransferCommand = new Command<Account>(Transfer);
-        }
-
-        private void ViewHistory(Account account)
-        {
-            // Lógica para ver historial
+            Console.WriteLine("Número de ID de la cuenta: ");
+            Console.WriteLine(account.Id);
+            if (_navigation != null)
+            {
+                await _navigation.PushAsync(new Views.TransactionsView(account.Id));
+            }
+            else
+            {
+                Console.WriteLine("_navigation es nulo");
+            }
         }
 
         private void MakePayment(Account account)
@@ -150,6 +152,7 @@ namespace StarBankApp.Views
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
 
     public class Cliente
     {

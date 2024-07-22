@@ -109,14 +109,14 @@
             WidthRequest="300"/>
 
 
-        </StackLayout>
+     </StackLayout>
 
     <!-- Pie: botón para cualquier otra acción -->
     <Button
             Grid.Row="2"
             Text="Inicio"
             x:Name="btnMainPage"
-            
+            Clicked="btnMainPage_Clicked"
             BackgroundColor="IndianRed"
             TextColor="Black"
             FontAttributes="Bold"
