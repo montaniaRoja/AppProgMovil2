@@ -120,6 +120,7 @@ namespace StarBankApp.Views
         {
             Console.WriteLine("Número de ID de la cuenta: ");
             Console.WriteLine(account.Id);
+
             if (_navigation != null)
             {
                 await _navigation.PushAsync(new Views.TransactionsView(account.Id));
@@ -130,8 +131,18 @@ namespace StarBankApp.Views
             }
         }
 
-        private void MakePayment(Account account)
+        private async void MakePayment(Account account)
         {
+            Console.WriteLine("Número de ID de la cuenta: ");
+            Console.WriteLine(account.Id);
+            if (_navigation != null)
+            {
+                await _navigation.PushAsync(new Views.PaymentsScreen(account.Id, account.No_Cuenta));
+            }
+            else
+            {
+                Console.WriteLine("_navigation es nulo");
+            }
             // Lógica para realizar un pago
         }
 

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StarBankApp.Views.PaymentsScreen"
+             Title="PaymentsScreen"
+             Background="Red">
+   
+
+    <Grid Padding="10">
+        <!-- Definimos tres filas: una para el encabezado, otra para el cuerpo, y otra para el pie -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Encabezado -->
+            <RowDefinition Height="*"/>
+            <!-- Cuerpo -->
+            <RowDefinition Height="Auto"/>
+            <!-- Pie -->
+        </Grid.RowDefinitions>
+
+        <!-- Encabezado: título y logo -->
+        <Frame
+        Grid.Row="0"
+        Padding="10"
+        BackgroundColor="Red"
+        BorderColor="Red"
+        CornerRadius="0">
+            <StackLayout
+            Orientation="Horizontal"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+                <Border Stroke="#C49B33"
+                StrokeThickness="4"
+                StrokeShape="RoundRectangle 40,0,0,40"
+                Background="Red"
+                Padding="16,8"
+                HorizontalOptions="Center">
+                    <Label
+                FontAttributes="Bold"
+                FontSize="36"
+                Text="Star Bank"
+                TextColor="White"
+                VerticalOptions="Center"
+                WidthRequest="200"/>
+                </Border>
+                <Image
+                Margin="10,0,100,0"
+                Aspect="AspectFit"
+                Source="mainlogo.jpg"
+                VerticalOptions="Center"
+                WidthRequest="75"
+                HeightRequest="75"/>
+            </StackLayout>
+        </Frame>
+
+        <!-- Cuerpo: campos de usuario y contraseña, botón de ingresar -->
+        <StackLayout 
+        Grid.Row="1" 
+        VerticalOptions="CenterAndExpand" 
+        HorizontalOptions="FillAndExpand" 
+        Padding="100"
+        Background="White"
+            HeightRequest="500">
+            <Picker Title="Seleccione Pago"
+                    ItemsSource="{Binding Pagos}"
+                    ItemDisplayBinding="{Binding Nombrepago}"
+                    Margin="0,-50,0,0"
+                    TextColor="Black"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    WidthRequest="300"
+                    HorizontalOptions="FillAndExpand" />
+                <Entry 
+                 Placeholder="Ingrese la Clave de pago"
+                    FontSize="18"
+                    WidthRequest="300"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    HorizontalOptions="FillAndExpand"
+                    Margin="0,20,0,0"/>
+            <Button Text="Buscar Pago"         
+             BackgroundColor="DeepSkyBlue" 
+             TextColor="White"
+             FontAttributes="Bold"
+             Margin="0,20,0,0"
+             WidthRequest="300"/>
+            <Entry
+                IsReadOnly="true"
+                Placeholder="Monto a Pagar"
+                FontSize="18"
+                WidthRequest="300"
+                TextColor="Black"
+                FontAttributes="Bold"
+                HorizontalOptions="FillAndExpand"
+                Margin="0,20,0,0"/>
+            <Entry
+                x:Name="txtNumeroDeCuenta"
+                IsReadOnly="true"
+                Placeholder="Cuenta a Debitar"
+                FontSize="18"
+                WidthRequest="300"
+                TextColor="Black"
+                FontAttributes="Bold"
+                HorizontalOptions="FillAndExpand"
+                Margin="0,20,0,0"/>
+            <Button Text="Ejecutar Pago"         
+                 BackgroundColor="DeepSkyBlue" 
+                 TextColor="White"
+                 FontAttributes="Bold"
+                 Margin="0,20,0,0"
+                 WidthRequest="300"/>
+
+        </StackLayout>
+
+        <!-- Pie: botón para cualquier otra acción -->
+        <Button
+        Grid.Row="2"
+        Text="Cuentas"
+        BackgroundColor="IndianRed"
+        TextColor="Black"
+        FontAttributes="Bold"
+        VerticalOptions="End"
+        WidthRequest="300"
+        Margin="0,10,0,10"/>
+    </Grid>
+</ContentPage>
