@@ -133,8 +133,10 @@
 
         <!-- Pie: botón para cualquier otra acción -->
         <Button
+            x:Name="btnBack"
         Grid.Row="2"
         Text="Cuentas"
+            Clicked="btnBack_Clicked"
         BackgroundColor="IndianRed"
         TextColor="Black"
         FontAttributes="Bold"

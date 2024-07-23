@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text.Json;
@@ -79,30 +80,7 @@ namespace StarBankApp.Views
             }
         }
 
-        // Clase para deserializar el JSON
-        public class PagoDetalle
-        {
-            [JsonProperty("id")]
-            public int Id { get; set; }
-
-            [JsonProperty("id_pago")]
-            public int IdPago { get; set; }
-
-            [JsonProperty("clavepago")]
-            public string Clavepago { get; set; }
-
-            [JsonProperty("monto")]
-            public decimal Monto { get; set; }
-
-            [JsonProperty("status")]
-            public string Status { get; set; }
-
-            [JsonProperty("createdAt")]
-            public string CreatedAt { get; set; }
-
-            [JsonProperty("updatedAt")]
-            public string UpdatedAt { get; set; }
-        }
+       
 
 
 
@@ -159,9 +137,122 @@ namespace StarBankApp.Views
             }
         }
 
+        private void btnBack_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new UserAccountsScreen());
+        }
+
         private async Task EjecutarPago()
         {
+            var clvPago = txtClave.Text;
+            var noCuenta = accountId;
+            var monto = Decimal.Parse(txtMonto.Text);
+            var saldo = saldoCuenta;
+            //var tipoMovimiento = "Pago " + txtPago.SelectedItem.ToString(); // Obtener el valor del picker
 
+            if (monto > saldo)
+            {
+                await DisplayAlert("Error", "El pago excede el saldo en la cuenta", "OK");
+                return;
+            }
+
+            var nuevoSaldo = saldo - monto;
+
+            var selectedPago = txtPago.SelectedItem as Pago;
+            if (selectedPago == null)
+            {
+                await DisplayAlert("Error", "Debe seleccionar un tipo de pago", "OK");
+                return;
+            }
+            var tipoMovimiento = "Pago " + selectedPago.Nombrepago;
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    // Enviar nuevoSaldo a la dirección 'http://34.42.1.3:3000/api/cuenta/{accountId}' usando PATCH
+                    var cuentaUrl = $"http://34.42.1.3:3000/api/cuenta/{noCuenta}";
+                    var saldoJson = JsonConvert.SerializeObject(new { saldo = nuevoSaldo });
+                    var saldoContent = new StringContent(saldoJson, Encoding.UTF8, "application/json");
+
+                    var saldoRequest = new HttpRequestMessage(new HttpMethod("PATCH"), cuentaUrl)
+                    {
+                        Content = saldoContent
+                    };
+
+                    var saldoResponse = await client.SendAsync(saldoRequest);
+
+                    if (!saldoResponse.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("Error", "Error actualizando el saldo", "OK");
+                        return;
+                    }
+
+                    // Enviar clvPago a la dirección 'http://34.42.1.3:3000/api/detallepago/update/{clvPago}' usando PATCH
+                    var pagoUrl = $"http://34.42.1.3:3000/api/detallepago/update/{clvPago}";
+
+                    var statusRequest = new HttpRequestMessage(new HttpMethod("PATCH"), pagoUrl);
+
+                    var statusResponse = await client.SendAsync(statusRequest);
+
+                    if (!statusResponse.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("Error", "Error actualizando el estado del pago", "OK");
+                        return;
+                    }
+
+                    // Enviar la transacción a la dirección 'http://34.42.1.3:3000/api/transaccion/create/'
+                    var transaccionUrl = "http://34.42.1.3:3000/api/transaccion/create/";
+                    var transaccionJson = JsonConvert.SerializeObject(new
+                    {
+                        cuenta_id = noCuenta,
+                        tipo_movimiento = tipoMovimiento,
+                        monto = monto
+                    });
+                    var transaccionContent = new StringContent(transaccionJson, Encoding.UTF8, "application/json");
+
+                    var transaccionResponse = await client.PostAsync(transaccionUrl, transaccionContent);
+
+                    if (!transaccionResponse.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("Error", "Error registrando la transacción", "OK");
+                        return;
+                    }
+
+                    await DisplayAlert("Éxito", "El pago se ha realizado correctamente", "OK");
+                    await Navigation.PushAsync(new UserAccountsScreen());
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
+                }
+            }
+        }
+
+
+        // Clase para deserializar el JSON
+        public class PagoDetalle
+        {
+            [JsonProperty("id")]
+            public int Id { get; set; }
+
+            [JsonProperty("id_pago")]
+            public int IdPago { get; set; }
+
+            [JsonProperty("clavepago")]
+            public string Clavepago { get; set; }
+
+            [JsonProperty("monto")]
+            public decimal Monto { get; set; }
+
+            [JsonProperty("status")]
+            public string Status { get; set; }
+
+            [JsonProperty("createdAt")]
+            public string CreatedAt { get; set; }
+
+            [JsonProperty("updatedAt")]
+            public string UpdatedAt { get; set; }
         }
 
     }

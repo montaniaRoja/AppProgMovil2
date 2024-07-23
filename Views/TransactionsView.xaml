@@ -82,10 +82,10 @@
                                 </Grid.ColumnDefinitions>
                                 <Label Text="{Binding Fecha, StringFormat='{0:yyyy-MM-dd}'}" TextColor="Black" FontSize="18" Grid.Column="0" />
                                 <Label Text="{Binding TipoMovimiento}" FontSize="18" TextColor="Black" Grid.Column="1"/>
-                                <Label Text="{Binding Monto, StringFormat='{0:C}'}" FontSize="24" TextColor="Black" FontAttributes="Bold" Grid.Column="2">
+                                <Label Text="{Binding Monto, StringFormat='{0:C}'}" FontSize="24" TextColor="Red" FontAttributes="Bold" Grid.Column="2">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding TipoMovimiento}" Value="Retiro">
-                                            <Setter Property="TextColor" Value="Red"/>
+                                        <DataTrigger TargetType="Label" Binding="{Binding TipoMovimiento}" Value="Deposito">
+                                            <Setter Property="TextColor" Value="Black"/>
                                         </DataTrigger>
                                     </Label.Triggers>
                                 </Label>
