@@ -137,7 +137,7 @@ namespace StarBankApp.Views
             Console.WriteLine(account.Id);
             if (_navigation != null)
             {
-                await _navigation.PushAsync(new Views.PaymentsScreen(account.Id, account.No_Cuenta));
+                await _navigation.PushAsync(new Views.PaymentsScreen(account.Id, account.No_Cuenta, account.Saldo));
             }
             else
             {

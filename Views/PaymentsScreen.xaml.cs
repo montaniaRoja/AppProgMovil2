@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.ComponentModel;
 using StarBankApp.Models;
 using System.Windows.Input;
+//using static UIKit.UIGestureRecognizer;
 
 
 
@@ -21,12 +22,14 @@ namespace StarBankApp.Views
         private UsersDB controller;
         private readonly int accountId;
         private readonly string accountNumber;
-        public PaymentsScreen(int accountId, string accountNumber)
+        private readonly decimal saldoCuenta;
+        public PaymentsScreen(int accountId, string accountNumber, decimal saldoCuenta)
         {
             InitializeComponent();
             controller = new UsersDB();
             this.accountId = accountId;
             this.accountNumber = accountNumber;
+            this.saldoCuenta = saldoCuenta;
             InitController();
             ObtenerListaDePagos(accountNumber);
             
@@ -36,6 +39,89 @@ namespace StarBankApp.Views
         {
             await controller.Init();
             
+        }
+
+        private async void btnPagar_Clicked(object sender, EventArgs e)
+        {
+            await EjecutarPago();
+
+        }
+
+        private async void btnBuscarPago_Clicked(object sender, EventArgs e)
+        {
+            var claveEnviar = txtClave.Text;
+            var status = "Pendiente";
+
+            string ruta = $"http://34.42.1.3:3000/api/detallepago/find/{claveEnviar}/{status}";
+
+            string jsonMonto = await FetchPaymentData(ruta);
+
+            if (!string.IsNullOrEmpty(jsonMonto))
+            {
+                Console.WriteLine("Datos de pago recibidos");
+                Console.WriteLine(jsonMonto);
+
+                try
+                {
+                    // Deserializa el JSON en un objeto PagoDetalle
+                    var pagoDetalle = JsonConvert.DeserializeObject<PagoDetalle>(jsonMonto);
+
+                    if (pagoDetalle != null)
+                    {
+                        // Asigna el valor de 'monto' al campo 'txtMonto'
+                        txtMonto.Text = pagoDetalle.Monto.ToString("F2");
+                    }
+                }
+                catch (JsonSerializationException ex)
+                {
+                    Console.WriteLine("Error deserializando el JSON: " + ex.Message);
+                }
+            }
+        }
+
+        // Clase para deserializar el JSON
+        public class PagoDetalle
+        {
+            [JsonProperty("id")]
+            public int Id { get; set; }
+
+            [JsonProperty("id_pago")]
+            public int IdPago { get; set; }
+
+            [JsonProperty("clavepago")]
+            public string Clavepago { get; set; }
+
+            [JsonProperty("monto")]
+            public decimal Monto { get; set; }
+
+            [JsonProperty("status")]
+            public string Status { get; set; }
+
+            [JsonProperty("createdAt")]
+            public string CreatedAt { get; set; }
+
+            [JsonProperty("updatedAt")]
+            public string UpdatedAt { get; set; }
+        }
+
+
+
+
+        private async Task<string> FetchPaymentData(string ruta)
+        {
+            using (var cliente = new HttpClient())
+            {
+                var response = await cliente.GetAsync(ruta);
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Este pago no existe o ya fue cancelado.", "OK");
+                    return null;
+                }
+            }
         }
 
         private async void ObtenerListaDePagos(string accountNumber)
@@ -71,6 +157,11 @@ namespace StarBankApp.Views
                     return null;
                 }
             }
+        }
+
+        private async Task EjecutarPago()
+        {
+
         }
 
     }
