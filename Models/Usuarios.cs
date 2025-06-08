@@ -37,7 +37,7 @@ namespace StarBankApp.Models
         public string correo { get; set; }
         public string direccion { get; set; }
         public string usuario { get; set; }
-        public int clave_secreta { get; set; }
+        public string clave_secreta { get; set; }
         public string keyword { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }

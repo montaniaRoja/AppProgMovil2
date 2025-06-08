@@ -66,7 +66,7 @@ namespace StarBankApp.Views
         {
             using (var client = new HttpClient())
             {
-                var uri = new Uri($"http://34.42.1.3:3000/api/cliente/finduser/{Uri.EscapeDataString(usuario)}/{Uri.EscapeDataString(password)}");
+                var uri = new Uri($"http://192.168.1.78:3000/api/cliente/finduser/{Uri.EscapeDataString(usuario)}/{Uri.EscapeDataString(password)}");
                 try
                 {
                     var response = await client.GetAsync(uri);

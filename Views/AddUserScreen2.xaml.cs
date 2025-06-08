@@ -53,7 +53,7 @@ namespace StarBankApp.Views
         {
             using (var client = new HttpClient())
             {
-                var uri = new Uri("http://34.42.1.3:3000/api/cuenta/findclave");
+                var uri = new Uri("http://192.168.1.78:3000/api/cuenta/findclave");
                 var json = $"{{ \"no_cuenta\": \"{cuenta}\" , \"usuario\": \"{usuario}\" , \"keyword\": \"{password}\", \"clave\": {clave} }}";
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 Console.WriteLine(json); // Verifica que el JSON sea correcto

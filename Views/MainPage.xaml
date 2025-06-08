@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StarBankApp.Views.MainPage"
-             Background="Red">
+             Background="#0dbee5">
     <Grid Padding="10">
         <!-- Definimos tres filas: una para el encabezado, otra para el cuerpo, y otra para el pie -->
         <Grid.RowDefinitions>
@@ -18,34 +18,21 @@
         <Frame
             Grid.Row="0"
             Padding="10"
-            BackgroundColor="Red"
-            BorderColor="Red"
+            BackgroundColor="#0dbee5"
+            BorderColor="#0dbee5"
             CornerRadius="0">
             <StackLayout
                 Orientation="Horizontal"
                 HorizontalOptions="Center"
                 VerticalOptions="Center">
-                <Border Stroke="#C49B33"
-                    StrokeThickness="4"
-                    StrokeShape="RoundRectangle 40,0,0,40"
-                    Background="Red"
-                    Padding="16,8"
-                    HorizontalOptions="Center">
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="36"
-                    Text="Star Bank"
-                    TextColor="White"
-                    VerticalOptions="Center"
-                    WidthRequest="200"/>
-                </Border>
+               
                 <Image
-                    Margin="10,0,100,0"
-                    Aspect="AspectFit"
-                    Source="mainlogo.jpg"
+                    Margin="0,0,100,0"
+                    Aspect="Fill"
+                    Source="bancapp.png"
                     VerticalOptions="Center"
-                    WidthRequest="75"
-                    HeightRequest="75"/>
+                    WidthRequest="350"
+                    HeightRequest="100"/>
             </StackLayout>
         </Frame>
 
@@ -77,9 +64,10 @@
                    TextColor="Black"/>
             <Button Text="Ingresar"
                     Clicked="UserLogin_Clicked"
-                    BackgroundColor="DeepSkyBlue" 
+                    BackgroundColor="#0dbee5" 
                     TextColor="White"
                     FontAttributes="Bold"
+                    FontSize="Large"
                     Margin="0,50,0,0"
                     WidthRequest="300"/>
 
@@ -87,7 +75,7 @@
                     x:Name="btnCrearUsuario"
                     Clicked="AddUserScreen_Clicked"
                     BackgroundColor="Transparent" 
-                    TextColor="Blue"
+                    TextColor="#0dbee5"
                     FontAttributes="Bold"
                     WidthRequest="300" 
                     Margin="0,50,0,0" />
@@ -99,8 +87,8 @@
             Text="Tipo de Cambio"
             x:Name="btnTipoDeCambio"
             Clicked="ChangeTypeScreen_Clicked"
-            BackgroundColor="IndianRed"
-            TextColor="Black"
+            BackgroundColor="#3e4560"
+            TextColor="#0dbee5"
             FontAttributes="Bold"
             VerticalOptions="End"
             WidthRequest="300"

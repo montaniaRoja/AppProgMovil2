@@ -53,7 +53,7 @@ namespace StarBankApp.Views
             var claveEnviar = txtClave.Text;
             var status = "Pendiente";
 
-            string ruta = $"http://34.42.1.3:3000/api/detallepago/find/{claveEnviar}/{status}";
+            string ruta = $"http://192.168.1.78:3000/api/detallepago/find/{claveEnviar}/{status}";
 
             string jsonMonto = await FetchPaymentData(ruta);
 
@@ -80,10 +80,6 @@ namespace StarBankApp.Views
             }
         }
 
-       
-
-
-
 
         private async Task<string> FetchPaymentData(string ruta)
         {
@@ -105,7 +101,7 @@ namespace StarBankApp.Views
         private async void ObtenerListaDePagos(string accountNumber)
         {
             txtNumeroDeCuenta.Text = accountNumber;
-            string url = $"http://34.42.1.3:3000/api/pago/list";
+            string url = $"http://192.168.1.78:3000/api/pago/list";
             string json=await FetchClientData(url);
 
             if (!string.IsNullOrEmpty(json))
@@ -170,7 +166,7 @@ namespace StarBankApp.Views
             {
                 try
                 {
-                    // Enviar nuevoSaldo a la dirección 'http://34.42.1.3:3000/api/cuenta/{accountId}' usando PATCH
+                    // Enviar nuevoSaldo a la dirección 'http://192.168.1.78:3000/api/cuenta/{accountId}' usando PATCH
                     var cuentaUrl = $"http://34.42.1.3:3000/api/cuenta/{noCuenta}";
                     var saldoJson = JsonConvert.SerializeObject(new { saldo = nuevoSaldo });
                     var saldoContent = new StringContent(saldoJson, Encoding.UTF8, "application/json");
@@ -188,7 +184,7 @@ namespace StarBankApp.Views
                         return;
                     }
 
-                    // Enviar clvPago a la dirección 'http://34.42.1.3:3000/api/detallepago/update/{clvPago}' usando PATCH
+                    // Enviar clvPago a la dirección 'http://192.168.1.78:3000/api/detallepago/update/{clvPago}' usando PATCH
                     var pagoUrl = $"http://34.42.1.3:3000/api/detallepago/update/{clvPago}";
 
                     var statusRequest = new HttpRequestMessage(new HttpMethod("PATCH"), pagoUrl);
@@ -201,8 +197,8 @@ namespace StarBankApp.Views
                         return;
                     }
 
-                    // Enviar la transacción a la dirección 'http://34.42.1.3:3000/api/transaccion/create/'
-                    var transaccionUrl = "http://34.42.1.3:3000/api/transaccion/create/";
+                    // Enviar la transacción a la dirección 'http://192.168.1.78:3000/api/transaccion/create/'
+                    var transaccionUrl = "http://192.168.1.78:3000/api/transaccion/create/";
                     var transaccionJson = JsonConvert.SerializeObject(new
                     {
                         cuenta_id = noCuenta,
