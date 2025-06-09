@@ -2,101 +2,134 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StarBankApp.Views.AddUserScreen2"
-             Background="#0dbee5">
+             BackgroundColor="#0dbee5">
+
     <Grid Padding="10">
-        <!-- Definimos tres filas: una para el encabezado, otra para el cuerpo, y otra para el pie -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- Encabezado -->
             <RowDefinition Height="*"/>
             <!-- Cuerpo -->
             <RowDefinition Height="Auto"/>
-            <!-- Pie -->
+            <!-- Pie si lo necesitas -->
         </Grid.RowDefinitions>
-        <Frame
-    Grid.Row="0"
-    Padding="10"
-    BackgroundColor="#0dbee5"
-    BorderColor="#0dbee5"
-    CornerRadius="0">
-            <StackLayout
-        Orientation="Horizontal"
-        HorizontalOptions="Center"
-        VerticalOptions="Center">
-                <Image
-     Margin="0,0,100,0"
-     Aspect="Fill"
-     Source="bancapp.png"
-     VerticalOptions="Center"
-     WidthRequest="350"
-     HeightRequest="100"/>
+
+        <!-- ENCABEZADO -->
+        <Frame Grid.Row="0"
+               Padding="10"
+               BackgroundColor="#0dbee5"
+               BorderColor="#0dbee5"
+               CornerRadius="0">
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center">
+                <Image Source="bancapp.png"
+                       WidthRequest="250"
+                       HeightRequest="80"
+                       Aspect="Fill"
+                       VerticalOptions="Center"/>
             </StackLayout>
         </Frame>
-        <StackLayout
-             Grid.Row="1" 
-             VerticalOptions="CenterAndExpand" 
-             HorizontalOptions="FillAndExpand" 
-             Padding="100"
-             Background="White">
-            
-            <Entry Placeholder="Numero de Cuenta"
-                   x:Name="txtCuenta"
-                   Keyboard="Numeric"
-                Margin="0,-70,0,10" 
-                HorizontalOptions="FillAndExpand" 
-                WidthRequest="300"
-                Background="Transparent"
-                FontSize="18"
-                FontAttributes="Bold"
-                TextColor="Black"/>
-            <Entry Placeholder="Usuario"
-           x:Name="txtUsuario"
-                Margin="0,20,0,10" 
-                HorizontalOptions="FillAndExpand" 
-                WidthRequest="300"
-                Background="Transparent"
-                FontSize="18"
-                FontAttributes="Bold"
-            TextColor="Black"/> 
-            <Entry Placeholder="Contraseña"
-           x:Name="txtKeyword"
-            Margin="0,20,0,10" 
-            IsPassword="True"
-            HorizontalOptions="FillAndExpand" 
-            WidthRequest="300"
-            Background="Transparent"
-            FontSize="18"
-            FontAttributes="Bold"
-            TextColor="Black"/>
-            <Entry Placeholder="Repita Contraseña"
-           x:Name="txtVerificar"
-                    Margin="0,20,0,10" 
-                   IsPassword="True"
-                    HorizontalOptions="FillAndExpand" 
-                    WidthRequest="300"
-                    Background="Transparent"
-                FontSize="18"
-                FontAttributes="Bold"
-                TextColor="Black"/>
-            <Entry Placeholder="Clave que recibio por correo"
-           x:Name="txtClave"
-                Margin="0,20,0,10" 
-                Keyboard="Numeric"
-                HorizontalOptions="FillAndExpand" 
-                WidthRequest="300"
-                Background="Transparent"
-                FontSize="18"
-                FontAttributes="Bold"
-                TextColor="Black"/>
-            <Button 
-                Text="Crear Usuario"
-                x:Name="btnCrearUsuario"
-                Clicked="CrearUsuario_Clicked"
-                BackgroundColor="#3e4560"
-TextColor="#0dbee5"
-FontAttributes="Bold"
-                Margin="0,30,0,10"
-                WidthRequest="300"/>
+
+        <!-- CUERPO CON FORMULARIO -->
+        <StackLayout Grid.Row="1"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Center"
+                     Spacing="15"
+                     Padding="20"
+                     BackgroundColor="White"
+                     Margin="0,20"
+                     WidthRequest="350">
+
+            <!-- Campo: Numero de Cuenta -->
+            <Frame HasShadow="False"
+                   Padding="0"
+                   CornerRadius="8"
+                   BorderColor="Gray"
+                   HeightRequest="50">
+                <Entry x:Name="txtCuenta"
+                       Placeholder="Número de Cuenta"
+                       Keyboard="Numeric"
+                       BackgroundColor="Transparent"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       Margin="10,0"/>
+            </Frame>
+
+            <!-- Campo: Usuario -->
+            <Frame HasShadow="False"
+                   Padding="0"
+                   CornerRadius="8"
+                   BorderColor="Gray"
+                   HeightRequest="50">
+                <Entry x:Name="txtUsuario"
+                       Placeholder="Usuario"
+                       BackgroundColor="Transparent"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       Margin="10,0"/>
+            </Frame>
+
+            <!-- Campo: Contraseña -->
+            <Frame HasShadow="False"
+                   Padding="0"
+                   CornerRadius="8"
+                   BorderColor="Gray"
+                   HeightRequest="50">
+                <Entry x:Name="txtKeyword"
+                       Placeholder="Contraseña"
+                       IsPassword="True"
+                       BackgroundColor="Transparent"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       Margin="10,0"/>
+            </Frame>
+
+            <!-- Campo: Repita Contraseña -->
+            <Frame HasShadow="False"
+                   Padding="0"
+                   CornerRadius="8"
+                   BorderColor="Gray"
+                   HeightRequest="50">
+                <Entry x:Name="txtVerificar"
+                       Placeholder="Repita Contraseña"
+                       IsPassword="True"
+                       BackgroundColor="Transparent"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       Margin="10,0"/>
+            </Frame>
+
+            <!-- Campo: Clave recibida por correo -->
+            <Frame HasShadow="False"
+                   Padding="0"
+                   CornerRadius="8"
+                   BorderColor="Gray"
+                   HeightRequest="50">
+                <Entry x:Name="txtClave"
+                       Placeholder="Clave que recibió por correo"
+                       Keyboard="Numeric"
+                       BackgroundColor="Transparent"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       Margin="10,0"/>
+            </Frame>
+
+            <!-- Botón Crear Usuario -->
+            <Button x:Name="btnCrearUsuario"
+                    Text="Crear Usuario"
+                    Clicked="CrearUsuario_Clicked"
+                    BackgroundColor="#3e4560"
+                    TextColor="#0dbee5"
+                    FontAttributes="Bold"
+                    CornerRadius="8"
+                    HeightRequest="50"
+                    Margin="0,20,0,0"/>
 
         </StackLayout>
     </Grid>

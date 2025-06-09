@@ -36,7 +36,7 @@
              Grid.Row="1" 
              VerticalOptions="CenterAndExpand" 
              HorizontalOptions="FillAndExpand" 
-             Padding="100"
+             Padding="200"
              Background="White">
             <Label
               Margin="0,-80,0,10"
@@ -45,15 +45,24 @@
               HorizontalTextAlignment="Center"
               Text="Crear Usuario"
               TextColor="Black" />
-            <Entry Placeholder="Correo Registrado"
+            <Frame
+        Padding="0"
+        HasShadow="False"
+        BorderColor="Gray"
+        CornerRadius="5"
+        WidthRequest="300"
+                HeightRequest="50"
+        Margin="0,0,0,0">
+                <Entry Placeholder="Correo Registrado"
                    x:Name="txtCorreo"
-        Margin="0,150,0,50" 
+        Margin="0,0,0,0" 
         HorizontalOptions="FillAndExpand" 
         WidthRequest="300"
         Background="Transparent"
         FontSize="18"
         FontAttributes="Bold"
         TextColor="Black"/>
+            </Frame>
             <Button 
                 Text="Solicitar Clave"
                 x:Name="btnSolicitarClave"

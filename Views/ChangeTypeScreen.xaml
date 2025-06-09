@@ -42,24 +42,36 @@
             HorizontalOptions="FillAndExpand" 
             Padding="100"
             Background="White">
-            <Label
+           
+                <Label
                 Text="Monto:"
                 x:Name="lblLempiras"
                 TextColor="Black"
                 FontSize="24"
                 FontAttributes="Bold"
                 Margin="-70,-75,0,0"/>
-            <Entry
+            <Frame
+        Padding="0"
+        HasShadow="False"
+        BorderColor="Gray"
+        CornerRadius="5"
+        WidthRequest="300"
+                HeightRequest="50"
+        Margin="0,0,0,50">
+
+                <Entry
             Text="0"
             x:Name="txtLempiras"
             Keyboard="Numeric"
-            Margin="0,10,0,50" 
+            Margin="0,0,0,0" 
             HorizontalOptions="FillAndExpand" 
             WidthRequest="300"
             Background="Transparent"
             FontSize="24"
             FontAttributes="Bold"
             TextColor="Black"/>
+            </Frame>
+
             <Label
                 Text="Resultado:"
                 x:Name="lblDolares"
