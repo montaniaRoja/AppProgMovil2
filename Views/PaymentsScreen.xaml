@@ -65,6 +65,7 @@
                     FontAttributes="Bold"
                     HorizontalOptions="FillAndExpand"
                     Margin="0,20,0,0"/>
+            
             <Button Text="Buscar Pago"
                     x:Name="btnBuscarPago"
                     Clicked="btnBuscarPago_Clicked"
