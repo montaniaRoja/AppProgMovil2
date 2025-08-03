@@ -39,7 +39,7 @@ namespace StarBankApp.Views
                 txtCliente.Text = ultimoUsuario.name;
                 Console.WriteLine(ultimoUsuario.token);
 
-                string url = $"http://192.168.1.78:3000/api/cliente/findWithToken/{ultimoUsuario.userId}/cuentas";
+                string url = $"{ApiConfig.BaseUrl}cliente/findWithToken/{ultimoUsuario.userId}/cuentas";
                 string json = await FetchClientData(url, ultimoUsuario.token);
 
                 if (!string.IsNullOrEmpty(json))

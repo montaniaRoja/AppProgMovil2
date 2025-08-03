@@ -42,7 +42,7 @@ namespace StarBankApp.Views
             {
                 Console.WriteLine(ultimoUsuario.token);
 
-                string url = $"http://192.168.1.78:3000/api/cuenta/findtransacciones/{accountId}/transacciones";
+                string url = $"{ApiConfig.BaseUrl}cuenta/findtransacciones/{accountId}/transacciones";
                 string json = await FetchAccountData(url, ultimoUsuario.token);
 
                 if (!string.IsNullOrEmpty(json))

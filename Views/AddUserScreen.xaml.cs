@@ -49,7 +49,7 @@ namespace StarBankApp.Views
                 int usuariosBorrados = await controller.DeleteUsuarios();
                 Console.Write("Usuarios borrados");
                 Console.Write(usuariosBorrados);
-                var uri = new Uri($"http://192.168.1.78:3000/api/cliente/findcorreo/{Uri.EscapeDataString(correo)}");
+                var uri = new Uri($"{ApiConfig.BaseUrl}cliente/findcorreo/{Uri.EscapeDataString(correo)}");
 
 
                 try
