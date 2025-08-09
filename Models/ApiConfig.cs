@@ -8,6 +8,6 @@ namespace StarBankApp.Models
 {
     public static class ApiConfig
     {
-        public static string BaseUrl => "http://192.168.2.111:3000/api/";
+        public static string BaseUrl => "http://192.168.1.78:3000/api/";
     }
 }

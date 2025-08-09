@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using StarBankApp.Controllers;
+using StarBankApp.Models;
 
 namespace StarBankApp.Views
 {
@@ -53,7 +54,9 @@ namespace StarBankApp.Views
         {
             using (var client = new HttpClient())
             {
-                var uri = new Uri("{ApiConfig.BaseUrl}cuenta/findclave");
+                var uri = new Uri($"{ApiConfig.BaseUrl}cuenta/findclave");
+                
+
                 var json = $"{{ \"no_cuenta\": \"{cuenta}\" , \"usuario\": \"{usuario}\" , \"keyword\": \"{password}\", \"clave\": {clave} }}";
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 Console.WriteLine(json); // Verifica que el JSON sea correcto
