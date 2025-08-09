@@ -159,6 +159,11 @@ namespace StarBankApp.Views
         [JsonProperty("saldo")]
         public double Saldo { get; set; }
 
+        [JsonProperty("simbolo")]
+        public string Simbolo { get; set; }
+        public string SaldoConSimbolo => $"{Simbolo}{Saldo:N2}";
+
+
         [JsonProperty("createdAt")]
         public string CreatedAt { get; set; }
 
@@ -167,6 +172,8 @@ namespace StarBankApp.Views
 
         [JsonProperty("Transaccions")]
         public List<Transaccion> Transaccion { get; set; }
+
+
     }
 
     public class Transaccion

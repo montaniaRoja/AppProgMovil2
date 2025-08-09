@@ -79,7 +79,13 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Label Text="{Binding Cuenta.Saldo, StringFormat='Saldo: {0:C}'}" TextColor="Black" FontSize="30" HorizontalOptions="Center" FontAttributes="Bold" />
+                <Label 
+    Text="{Binding Cuenta.SaldoConSimbolo}" 
+    TextColor="Black" 
+    FontSize="30" 
+    HorizontalOptions="Center" 
+    FontAttributes="Bold" />
+
             </StackLayout>
         </Frame>
 
